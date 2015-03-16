@@ -1,0 +1,64 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    tools:context="com.baeflower.hello.activity.SMSExamActivity"
+    android:orientation="vertical">
+
+    <EditText
+        android:id="@+id/sms_input"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_weight="1"
+        android:lines="8"
+        android:gravity="top"
+        android:maxLength="80"
+        android:background="@drawable/border1"
+        android:padding="3dp" />
+    <!-- android:gravity="top" : 커서가 왼쪽 첫라인에! 디폴트는 center?! -->
+    <!-- android:background="@drawable/border1" : border1.xml을 통해서 배경 설정 -->
+    <!-- android:inputType="textMultiLine" : 이거 안해도 잘 내려가는데? -->
+    <!-- android:scrollHorizontally="false" : 이거 안해도 잘 내려가는데? -->
+    <!-- android:scrollbars="vertical" : 스크롤 !-->
+
+    <TextView
+        android:id="@+id/bytes_count"
+        android:text="0 / 80 바이트"
+        android:textSize="20sp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="right"
+        android:layout_marginEnd="20dp"
+        android:layout_marginRight="20dp"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_marginTop="80dp"
+        android:layout_marginBottom="80dp">
+
+        <Button
+            android:id="@+id/sms_transfer"
+            android:text="전송"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <Button
+            android:id="@+id/sms_exit"
+            android:text="닫기"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
+
+</LinearLayout>

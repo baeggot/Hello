@@ -1,0 +1,60 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    tools:context="com.baeflower.hello.activity.FrameLayoutActivity"
+    android:orientation="vertical">
+
+
+    <Button
+        android:id="@+id/img_change_btn"
+        android:text="이미지 바꾸기"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"/>
+
+
+    <HorizontalScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ScrollView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <!-- 이미지를 넣고 싶다! -->
+                <ImageView
+                    android:id="@+id/img_giraffe_1"
+                    android:src="@drawable/giraffe_1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:scaleType="center"/>
+
+                <ImageView
+                    android:id="@+id/img_giraffe_2"
+                    android:src="@drawable/giraffe_2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:visibility="invisible"
+                    android:scaleType="center"/>
+                <!-- invisible : 안보이는데 레이아웃은 차지하고 있음 -->
+                <!-- gone : 안보이는데 .. 레이아웃 차지도 안하고? 나중에 써봐 -->
+                <!-- invisible과 gone의 차이는 .... . ?!!-->
+
+            </FrameLayout>
+
+        </ScrollView>
+
+    </HorizontalScrollView>
+
+</LinearLayout>

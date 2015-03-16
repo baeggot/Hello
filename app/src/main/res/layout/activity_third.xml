@@ -1,0 +1,120 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:orientation="vertical"
+    tools:context="com.baeflower.hello.activity.ThirdActivity">
+
+    <!-- R   G  B -->
+    <!-- #00 00 00 -->
+    <!-- Alpha R G B -->
+    <!-- #FF FF 00 00 : 알파값 추가-->
+    <!-- F 는 255를 16진수로 나타낸 것 -->
+    <!-- 1:1:1:1 -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:background="#FFFF0000"
+            android:layout_weight="1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:background="#FFFFff00"
+            android:layout_weight="1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:background="#FFFF0000"
+            android:layout_weight="1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:background="#FFFFff00"
+            android:layout_weight="1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
+
+
+
+    <!-- 2:1:1 -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:baselineAligned="true"
+        android:layout_marginTop="10dp">
+        <!-- baselineAligned 를 true면 서로 라인을 맞추게 됨(디폴트 true) -->
+
+        <TextView
+            android:background="#FFFF00ff"
+            android:layout_weight="2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:background="#FF00ffff"
+            android:layout_weight="1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:background="#FFFF0000"
+            android:layout_weight="1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
+
+    <!-- 글자 -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:baselineAligned="false"
+        android:layout_marginTop="10dp">
+
+        <!-- 텍스트 사이즈는 sp로 줍시다..? dp와 sp가 다르게 보일수도, 같게 보일수도 기기마다 다름 -->
+        <!-- 텍스트 뷰는 글자크기에 영향을 받기 때문에 비율이 어그러질 수 있다 -->
+        <TextView
+            android:background="#330000ff"
+            android:layout_weight="1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="테스트1"
+            android:textSize="30sp"
+            android:textColor="#FFffffff"
+            android:gravity="left"
+            android:layout_margin="20dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="200dp"
+            android:text="테스트2"
+            android:background="#3300ff00"
+            android:layout_weight="1"
+            android:textSize="30sp"
+            android:gravity="end|bottom"
+            android:paddingRight="20dp"
+            android:paddingEnd="20dp"
+            android:paddingBottom="20dp" />
+    <!-- 우리는 왼쪽에서 오른쪽으로 보는데, 다른 언어권은 오른쪽에서 왼쪽으로 보는 곳도 있음 -->
+    <!-- paddingStart : 우리나라에서 Start를 쓰면 left로 인식하고 아랍권은 right로 인식 -->
+    <!-- 그래서 paddingLeft, paddingRight 대신 paddingStart, paddingEnd를 쓴다 -->
+    <!-- minSdk 문제때문에 paddingEnd/Start에 빨간줄 들어왔는데 이때 paddingRight/Left 같이쓰면 된다 -->
+    <!-- Gradle Scripts -> build gradle(Module:app) 들어가서 minSDK 수정할 수 있지만 이러면 낮은 버전 지원이 안되게 됨 -->
+    <!-- 이렇게 하면 17버전 밑에서는 right를 읽고 17부터는 end를 읽는다(xml은 없는 속성은 무시하기 떄문에 가능 -->
+
+    </LinearLayout>
+
+</LinearLayout>

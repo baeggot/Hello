@@ -1,0 +1,44 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    tools:context="com.baeflower.hello.activity.RelativeLayoutExamActivity">
+
+    <Button
+        android:id="@+id/button1"
+        android:text="@string/hello_world"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <Button
+        android:id="@+id/button2"
+        android:text="@string/hello_world"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/button1"/>
+    <!-- android:layout_below=""  : 내가 어떤 놈 아래에 있겠다 -->
+
+    <Button
+        android:id="@+id/button3"
+        android:text="@string/hello_world"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/button2"
+        android:layout_alignBaseline="@id/button2"/>
+    <!-- android:layout_toRightOf=""  : 내가 어떤 놈 오른쪽에 있겠다, 근데 1 옆에 있네? 근데 위로간거야. align 맞추기 필요 -->
+    <!-- android:layout_alignBaseline="@id/button2" : 라인 맞추기 -->
+
+    <Button
+        android:id="@+id/button4"
+        android:text="@string/hello_world"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"/>
+    <!-- android:layout_alignParentBottom="true" : 부모의 아래로! -->
+
+
+</RelativeLayout>

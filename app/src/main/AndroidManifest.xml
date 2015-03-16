@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.baeflower.hello" >
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme" >
+
+        <!-- 실제로 수행되는 Activity만 manifest에 넣어둬도 된다 -->
+        <!-- <activity -->
+        <!-- android:name=".FirstActivity" -->
+        <!-- android:label="@string/app_name" > -->
+        <!-- </activity> -->
+
+
+        <!-- <activity -->
+        <!-- android:name=".SecondActivity" -->
+        <!-- android:label="@string/title_activity_second" > -->
+        <!-- </activity> -->
+        <!-- <activity -->
+        <!-- android:name=".ThirdActivity" -->
+        <!-- android:label="@string/title_activity_third" > -->
+        <!-- </activity> -->
+        <!-- <activity -->
+        <!-- android:name=".RelativeLayoutExamActivity" -->
+        <!-- android:label="@string/title_activity_relative_layout_exam" > -->
+        <!-- </activity> -->
+        <!-- <activity -->
+        <!-- android:name=".TableLayoutActivity" -->
+        <!-- android:label="@string/title_activity_table_layout" > -->
+        <!-- </activity> -->
+        <!-- <activity -->
+        <!-- android:name=".FrameLayoutActivity" -->
+        <!-- android:label="@string/title_activity_frame_layout" > -->
+        <!-- </activity> -->
+        <!-- <activity -->
+        <!-- android:name=".ImageExamActivity" -->
+        <!-- android:label="@string/title_activity_image_exam" > -->
+        <!-- </activity> -->
+        <!-- <activity -->
+        <!-- android:name=".EditTextActivity" -->
+        <!-- android:label="@string/title_activity_edit_text" > -->
+        <!-- </activity> -->
+        <!-- <activity -->
+        <!-- android:name=".SMSExamActivity" -->
+        <!-- android:label="@string/title_activity_smsexam" -->
+        <!-- android:windowSoftInputMode="stateHidden" > -->
+        <!-- &lt;!&ndash; android:windowSoftInputMode="stateHidden" : 클릭해서 포서크 되었을 때 키패드 띄우기, 안되는데?! &ndash;&gt; -->
+        <!-- </activity> -->
+
+        <activity
+            android:name=".activity.ActivityExamActivity"
+            android:label="@string/title_activity_activity_exam" >
+
+            <!-- android:launchMode="singleTop" : singleTop : 유일하게 하나만 존재 -->
+        </activity>
+        <activity
+            android:name=".activity.TargetActivity"
+            android:label="@string/title_activity_target" >
+        </activity>
+
+
+        <activity
+            android:name=".challenge.challenge_04.LoginExamActivity"
+            android:label="@string/title_activity_login_exam" >
+        </activity>
+        <activity
+            android:name=".challenge.challenge_04.LoginActivityTargetActivity"
+            android:label="@string/title_activity_login_activity_target" >
+        </activity>
+
+
+        <activity
+            android:name=".challenge_s.challenge_04.MainActivity"
+            android:label="@string/title_activity_main" >
+        </activity>
+        <activity
+            android:name=".challenge_s.challenge_04.SubActivity"
+            android:label="@string/title_activity_sub" >
+        </activity>
+        <activity
+            android:name=".event.TouchEventActivity"
+            android:label="@string/title_activity_touch_event" >
+
+        </activity>
+
+
+
+        <activity
+            android:name=".challenge.challenge_05.DatePickerActivity"
+            android:label="@string/title_activity_date_picker" >
+
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+
+        </activity>
+    </application>
+
+</manifest>

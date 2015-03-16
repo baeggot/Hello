@@ -1,0 +1,70 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    tools:context="com.baeflower.hello.activity.ImageExamActivity"
+    android:orientation="vertical">
+
+    <!-- height를 wrap_content로 해놓고 weight를 1로 줬는데 -->
+    <!-- 내용이 없거나 텍스트뷰처럼 내용이 넘으면 비율 조정이 안됨 -->
+    <!-- 이떄 weight 넣은 view에 weight가 적용될 곳에 1dp를 넣어줘라 -->
+    <!-- 이렇게 하면 내용이 있든 없든 일단 1dp를 주고 나서 비율을 맞춘다-->
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_weight="1">
+
+        <!-- 빌드할 때 마다 id 값들이 R (app -> build -> generated -> source -> r -> debug -> 패키지명 -> R) 에 상수로 정의됨  -->
+        <!-- 우리는 상수 이름으로 갖다 쓰는 것 -->
+        <!-- build -> clean project 하면 R이 사라짐...안없어지내? 어케하면 없어짐 -->
+        <ImageView
+            android:id="@+id/img_1"
+            android:src="@drawable/giraffe_1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <!-- android:scaleType="center" : 원래 default(fitCenter)는 화면 크기에 이미지를 맞춰줌 -->
+        <!-- 근데 scaleType을 조절하면 원래 이미지 크기로 볼 수 ...있음?! -->
+        <!-- matrix로 해놓고 로직에서 매트릭스 활용해서 회전이나 뭐 그런거 할수 있음 -->
+
+
+    </FrameLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center">
+
+        <Button
+            android:id="@+id/btn_img_down"
+            android:text="@string/down_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <Button
+            android:id="@+id/btn_img_up"
+            android:text="@string/up_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_weight="1">
+
+        <ImageView
+            android:id="@+id/img_2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </FrameLayout>
+
+
+</LinearLayout>
