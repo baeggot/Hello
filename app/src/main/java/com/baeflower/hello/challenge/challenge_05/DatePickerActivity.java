@@ -26,7 +26,8 @@ public class DatePickerActivity extends ActionBarActivity {
     private Button mBirthdayTimeBtn;
 
     private int year, month, day, hour, minute;
-
+    private SimpleDateFormat sf;
+    private GregorianCalendar calendar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,7 +40,10 @@ public class DatePickerActivity extends ActionBarActivity {
         mBirthdayTimeBtn = (Button) findViewById(R.id.btn_birthday_time);
         mSaveBtn = (Button) findViewById(R.id.btn_save);
 
-        GregorianCalendar calendar = new GregorianCalendar();
+        sf = new SimpleDateFormat("yyyy년 MM월 dd일");
+        calendar = new GregorianCalendar();
+
+
         year = calendar.get(Calendar.YEAR);
         month = calendar.get(Calendar.MONTH);
         day = calendar.get(Calendar.DAY_OF_MONTH);
@@ -70,7 +74,8 @@ public class DatePickerActivity extends ActionBarActivity {
                     이 안에서 계속 변수에 새로 값을 넣어야겠네
                  */
 
-                // false 하니깐 오전, 오후 안뜨네
+                // false(오전,오후로 구별)
+                // true(24시간 형태)
                 new TimePickerDialog(DatePickerActivity.this, timeSetListener, hour, minute, false).show();
             }
         });
@@ -95,12 +100,10 @@ public class DatePickerActivity extends ActionBarActivity {
         public void onDateSet(DatePicker view, int year, int monthOfYear,
                               int dayOfMonth) {
             // String msg = String.format("%d 년 %d 월 %d 일", year, monthOfYear + 1, dayOfMonth);
-            SimpleDateFormat sf = new SimpleDateFormat("yyyy년 MM월 dd일");
-            GregorianCalendar tmpCalendar = new GregorianCalendar();
-            tmpCalendar.set(year, monthOfYear, dayOfMonth);
+            calendar.set(year, monthOfYear, dayOfMonth);
 
-            mBirthdayBtn.setText(sf.format(tmpCalendar.getTime()));
-            Toast.makeText(DatePickerActivity.this, sf.format(tmpCalendar.getTime()), Toast.LENGTH_SHORT).show();
+            mBirthdayBtn.setText(sf.format(calendar.getTime()));
+            Toast.makeText(DatePickerActivity.this, sf.format(calendar.getTime()), Toast.LENGTH_SHORT).show();
         }
     };
 
@@ -108,7 +111,6 @@ public class DatePickerActivity extends ActionBarActivity {
 
         @Override
         public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-            // TODO Auto-generated method stub
             String am_pm = "";
 
             Calendar datetime = Calendar.getInstance();

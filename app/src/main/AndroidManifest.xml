@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.baeflower.hello" >
 
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -60,8 +62,6 @@
             android:name=".activity.TargetActivity"
             android:label="@string/title_activity_target" >
         </activity>
-
-
         <activity
             android:name=".challenge.challenge_04.LoginExamActivity"
             android:label="@string/title_activity_login_exam" >
@@ -70,8 +70,6 @@
             android:name=".challenge.challenge_04.LoginActivityTargetActivity"
             android:label="@string/title_activity_login_activity_target" >
         </activity>
-
-
         <activity
             android:name=".challenge_s.challenge_04.MainActivity"
             android:label="@string/title_activity_main" >
@@ -83,14 +81,27 @@
         <activity
             android:name=".event.TouchEventActivity"
             android:label="@string/title_activity_touch_event" >
+        </activity>
+        <activity
+            android:name=".challenge.challenge_05.DatePickerActivity"
+            android:label="@string/title_activity_date_picker" >
+        </activity>
+        <activity
+            android:name=".challenge.challenge_06.WebViewActivity"
+            android:label="@string/title_activity_web_view" >
 
         </activity>
 
 
+        <activity
+            android:name=".listview.ListViewExam01Activity"
+            android:label="@string/title_activity_list_view_exam01" >
+
+        </activity>
 
         <activity
-            android:name=".challenge.challenge_05.DatePickerActivity"
-            android:label="@string/title_activity_date_picker" >
+            android:name=".listview.ListViewExam02Activity"
+            android:label="@string/title_activity_list_view_exam02">
 
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -99,6 +110,7 @@
             </intent-filter>
 
         </activity>
+
     </application>
 
 </manifest>

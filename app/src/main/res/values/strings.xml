@@ -36,6 +36,9 @@
     <string name="title_activity_sub">SubActivity</string>
     <string name="title_activity_touch_event">TouchEventActivity</string>
     <string name="title_activity_date_picker">DatePickerActivity</string>
+    <string name="title_activity_web_view">WebViewActivity</string>
+    <string name="title_activity_list_view_exam01">ListViewExam01Activity</string>
+    <string name="title_activity_list_view_exam02">ListViewExam02Activity</string>
 
 
 
