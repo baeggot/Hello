@@ -9,49 +9,46 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
+         실제로 수행되는 Activity만 manifest에 넣어둬도 된다
+        <activity
+            android:name=".activity.FirstActivity"
+            android:label="@string/app_name" >
+        </activity>
+        <activity
+            android:name=".activity.SecondActivity"
+            android:label="@string/title_activity_second" >
+        </activity>
+        <activity
+            android:name=".activity.ThirdActivity"
+            android:label="@string/title_activity_third" >
+        </activity>
+        <activity
+            android:name=".activity.RelativeLayoutExamActivity"
+            android:label="@string/title_activity_relative_layout_exam" >
+        </activity>
+        <activity
+            android:name=".activity.TableLayoutActivity"
+            android:label="@string/title_activity_table_layout" >
+        </activity>
+        <activity
+            android:name=".activity.FrameLayoutActivity"
+            android:label="@string/title_activity_frame_layout" >
+        </activity>
+        <activity
+            android:name=".activity.ImageExamActivity"
+            android:label="@string/title_activity_image_exam" >
+        </activity>
+        <activity
+            android:name=".activity.EditTextActivity"
+            android:label="@string/title_activity_edit_text" >
+        </activity>
+        <activity
+            android:name=".activity.SMSExamActivity"
+            android:label="@string/title_activity_smsexam"
+            android:windowSoftInputMode="stateHidden" >
 
-        <!-- 실제로 수행되는 Activity만 manifest에 넣어둬도 된다 -->
-        <!-- <activity -->
-        <!-- android:name=".FirstActivity" -->
-        <!-- android:label="@string/app_name" > -->
-        <!-- </activity> -->
-
-
-        <!-- <activity -->
-        <!-- android:name=".SecondActivity" -->
-        <!-- android:label="@string/title_activity_second" > -->
-        <!-- </activity> -->
-        <!-- <activity -->
-        <!-- android:name=".ThirdActivity" -->
-        <!-- android:label="@string/title_activity_third" > -->
-        <!-- </activity> -->
-        <!-- <activity -->
-        <!-- android:name=".RelativeLayoutExamActivity" -->
-        <!-- android:label="@string/title_activity_relative_layout_exam" > -->
-        <!-- </activity> -->
-        <!-- <activity -->
-        <!-- android:name=".TableLayoutActivity" -->
-        <!-- android:label="@string/title_activity_table_layout" > -->
-        <!-- </activity> -->
-        <!-- <activity -->
-        <!-- android:name=".FrameLayoutActivity" -->
-        <!-- android:label="@string/title_activity_frame_layout" > -->
-        <!-- </activity> -->
-        <!-- <activity -->
-        <!-- android:name=".ImageExamActivity" -->
-        <!-- android:label="@string/title_activity_image_exam" > -->
-        <!-- </activity> -->
-        <!-- <activity -->
-        <!-- android:name=".EditTextActivity" -->
-        <!-- android:label="@string/title_activity_edit_text" > -->
-        <!-- </activity> -->
-        <!-- <activity -->
-        <!-- android:name=".SMSExamActivity" -->
-        <!-- android:label="@string/title_activity_smsexam" -->
-        <!-- android:windowSoftInputMode="stateHidden" > -->
-        <!-- &lt;!&ndash; android:windowSoftInputMode="stateHidden" : 클릭해서 포서크 되었을 때 키패드 띄우기, 안되는데?! &ndash;&gt; -->
-        <!-- </activity> -->
-
+            <!-- android:windowSoftInputMode="stateHidden" : 클릭해서 포서크 되었을 때 키패드 띄우기, 안되는데?! -->
+        </activity>
         <activity
             android:name=".activity.ActivityExamActivity"
             android:label="@string/title_activity_activity_exam" >
@@ -89,28 +86,49 @@
         <activity
             android:name=".challenge.challenge_06.WebViewActivity"
             android:label="@string/title_activity_web_view" >
-
         </activity>
-
-
         <activity
             android:name=".listview.ListViewExam01Activity"
             android:label="@string/title_activity_list_view_exam01" >
-
         </activity>
-
         <activity
             android:name=".listview.ListViewExam02Activity"
-            android:label="@string/title_activity_list_view_exam02">
-
+            android:label="@string/title_activity_list_view_exam02" >
+        </activity>
+        <activity
+            android:name=".StartActivity"
+            android:label="@string/title_activity_start"
+            android:theme="@style/Base.Theme.AppCompat" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
         </activity>
-
+        <activity
+            android:name=".menus.ActivityMenuActivity"
+            android:label="@string/title_activity_activity_menu" >
+        </activity>
+        <activity
+            android:name=".menus.ChallengeMenuActivity"
+            android:label="@string/title_activity_challenge" >
+        </activity>
+        <activity
+            android:name=".menus.ChallengeSamMenuActivity"
+            android:label="@string/title_activity_challenge_sam" >
+        </activity>
+        <activity
+            android:name=".menus.EventMenuActivity"
+            android:label="@string/title_activity_event" >
+        </activity>
+        <activity
+            android:name=".menus.ListViewMenuActivity"
+            android:label="@string/title_activity_list_view_menu" >
+        </activity>
+        <activity
+            android:name=".menus.MenuActivity"
+            android:label="@string/title_activity_menu" >
+        </activity>
     </application>
 
 </manifest>
