@@ -32,7 +32,9 @@ public class GridViewCalendarActivity extends ActionBarActivity {
     private GregorianCalendar calendar;
     private int currentYear, currentMonth, day, yoil, weekNum, lastDay, yoilOfFirstDay, lastDayOfLastMonth;
 
-    private final int CURRENT_INFO = -1;
+    private final int CURRENT = 0;
+    private final int BEFORE = 1;
+    private final int AFTER = 2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,7 +45,7 @@ public class GridViewCalendarActivity extends ActionBarActivity {
         this.initData();
 
         // Data
-        this.setMonthData("CURRENT");
+        this.setMonthData(CURRENT);
 
         // Adapter
         arrayAdapter = new ArrayAdapter<Integer>(getApplicationContext(), android.R.layout.simple_list_item_1, mDayArr2);
@@ -58,7 +60,7 @@ public class GridViewCalendarActivity extends ActionBarActivity {
         mBtnLastMonth.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                setMonthData("BEFORE");
+                setMonthData(BEFORE);
                 mCurrentYeearTextView.setText(currentYear + "년 ");
                 mCurrentMonthTextView.setText((currentMonth + 1) + "월");
                 arrayAdapter.notifyDataSetChanged();
@@ -67,7 +69,7 @@ public class GridViewCalendarActivity extends ActionBarActivity {
         mBtnAfterMonth.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                setMonthData("AFTER");
+                setMonthData(AFTER);
                 mCurrentYeearTextView.setText(currentYear + "년 ");
                 mCurrentMonthTextView.setText((currentMonth + 1) + "월");
                 arrayAdapter.notifyDataSetChanged();
@@ -91,17 +93,16 @@ public class GridViewCalendarActivity extends ActionBarActivity {
 
 
     // 달력 데이터 세팅
-    private void setMonthData(String flag){
+    private void setMonthData(int flag){
 
         // View의 출력된 month를 기준으로 해야됨!
-        if ("BEFORE".equals(flag)) {// 이전 달
+        if (flag == BEFORE) {// 이전 달
             calendar.set(calendar.MONTH, currentMonth);
             calendar.add(calendar.MONTH, -1);
 
-        } else if ("AFTER".equals(flag)) {// 다음 달
+        } else if (flag == AFTER) {// 다음 달
             calendar.set(calendar.MONTH, currentMonth);
             calendar.add(calendar.MONTH, +1);
-
         }
 
         currentYear = calendar.get(calendar.YEAR);
