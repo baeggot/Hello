@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -50,7 +49,7 @@ public class MenuActivity extends ActionBarActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 try {
                     ActivityInfo activityInfo = activityInfoList.get(position);
-                    Log.d("activityinfo.name : ", activityInfo.name);
+//                    Log.d("activityinfo.name : ", activityInfo.name);
                     Class c = Class.forName(activityInfo.name);
                     Intent intent = new Intent(MenuActivity.this, c);
                     startActivity(intent);
@@ -60,9 +59,10 @@ public class MenuActivity extends ActionBarActivity {
             }
         });
 
-
-
     }// onCreate
+
+
+
 
 
 }

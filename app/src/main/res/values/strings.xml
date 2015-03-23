@@ -25,6 +25,12 @@
 
 
 
+    <!-- GridCalendar-->
+    <string name="before_month"><![CDATA["<"]]></string>
+    <string name="after_month"><![CDATA[">"]]></string>
+
+
+
     <string name="title_activity_edit_text">EditTextActivity</string>
     <string name="title_activity_smsexam">SMSExamActivity</string>
     <string name="title_activity_activity_exam">ActivityExamActivity</string>
@@ -46,6 +52,9 @@
     <string name="title_activity_event">EventMenuActivity</string>
     <string name="title_activity_list_view_menu">ListViewMenuActivity</string>
     <string name="title_activity_menu">MenuActivity</string>
+    <string name="title_activity_spinner_exam01">SpinnerExam01Activity</string>
+    <string name="title_activity_grid_view_exam01">GridViewExam01Activity</string>
+    <string name="title_activity_grid_view_calendar">GridViewCalendarActivity</string>
 
 
 

@@ -106,28 +106,20 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".menus.ActivityMenuActivity"
-            android:label="@string/title_activity_activity_menu" >
-        </activity>
-        <activity
-            android:name=".menus.ChallengeMenuActivity"
-            android:label="@string/title_activity_challenge" >
-        </activity>
-        <activity
-            android:name=".menus.ChallengeSamMenuActivity"
-            android:label="@string/title_activity_challenge_sam" >
-        </activity>
-        <activity
-            android:name=".menus.EventMenuActivity"
-            android:label="@string/title_activity_event" >
-        </activity>
-        <activity
-            android:name=".menus.ListViewMenuActivity"
-            android:label="@string/title_activity_list_view_menu" >
-        </activity>
-        <activity
             android:name=".menus.MenuActivity"
             android:label="@string/title_activity_menu" >
+        </activity>
+        <activity
+            android:name=".spinner.SpinnerExam01Activity"
+            android:label="@string/title_activity_spinner_exam01" >
+        </activity>
+        <activity
+            android:name=".grid.GridViewExam01Activity"
+            android:label="@string/title_activity_grid_view_exam01" >
+        </activity>
+        <activity
+            android:name=".grid.GridViewCalendarActivity"
+            android:label="@string/title_activity_grid_view_calendar" >
         </activity>
     </application>
 
