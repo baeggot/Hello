@@ -24,8 +24,7 @@ public class GridViewCalendarActivity extends ActionBarActivity {
     private ArrayAdapter<Integer> arrayAdapter;
 
     private GridView mCalendarGridView;
-    private TextView mCurrentMonthTextView;
-    private TextView mCurrentYeearTextView;
+    private TextView mCurrentYearMonthTextView;
     private Button mBtnLastMonth;
     private Button mBtnAfterMonth;
 
@@ -52,8 +51,7 @@ public class GridViewCalendarActivity extends ActionBarActivity {
 
         // View
         mCalendarGridView.setAdapter(arrayAdapter);
-        mCurrentYeearTextView.setText(currentYear + "년 ");
-        mCurrentMonthTextView.setText((currentMonth + 1) + "월");
+        mCurrentYearMonthTextView.setText(currentYear + "년 " + (currentMonth + 1) + "월");
 
 
         // Event Handler
@@ -61,8 +59,7 @@ public class GridViewCalendarActivity extends ActionBarActivity {
             @Override
             public void onClick(View v) {
                 setMonthData(BEFORE);
-                mCurrentYeearTextView.setText(currentYear + "년 ");
-                mCurrentMonthTextView.setText((currentMonth + 1) + "월");
+                mCurrentYearMonthTextView.setText(currentYear + "년 " + (currentMonth + 1) + "월");
                 arrayAdapter.notifyDataSetChanged();
             }
         });
@@ -70,8 +67,7 @@ public class GridViewCalendarActivity extends ActionBarActivity {
             @Override
             public void onClick(View v) {
                 setMonthData(AFTER);
-                mCurrentYeearTextView.setText(currentYear + "년 ");
-                mCurrentMonthTextView.setText((currentMonth + 1) + "월");
+                mCurrentYearMonthTextView.setText(currentYear + "년 " + (currentMonth + 1) + "월");
                 arrayAdapter.notifyDataSetChanged();
             }
         });
@@ -84,8 +80,7 @@ public class GridViewCalendarActivity extends ActionBarActivity {
         // mDayArr = new Integer[5][7]; // 7칸 짜리 배열이 5줄
         mDayArr2 = new Integer[35]; // 35칸
         mCalendarGridView = (GridView) findViewById(R.id.gridView_calendar);
-        mCurrentMonthTextView = (TextView) findViewById(R.id.textView_currentMonth);
-        mCurrentYeearTextView = (TextView) findViewById(R.id.textView_currentYear);
+        mCurrentYearMonthTextView = (TextView) findViewById(R.id.textView_currentYearMonth);
         mBtnLastMonth = (Button) findViewById(R.id.btn_lastMonth);
         mBtnAfterMonth = (Button) findViewById(R.id.btn_afterMonth);
         calendar = new GregorianCalendar();
@@ -99,7 +94,6 @@ public class GridViewCalendarActivity extends ActionBarActivity {
         if (flag == BEFORE) {// 이전 달
             calendar.set(calendar.MONTH, currentMonth);
             calendar.add(calendar.MONTH, -1);
-
         } else if (flag == AFTER) {// 다음 달
             calendar.set(calendar.MONTH, currentMonth);
             calendar.add(calendar.MONTH, +1);
@@ -120,7 +114,7 @@ public class GridViewCalendarActivity extends ActionBarActivity {
         calendar.add(calendar.MONTH, -1);
         lastDayOfLastMonth = calendar.getActualMaximum(calendar.DAY_OF_MONTH);
 
-        // 1행에 1일을 해당하는 요일에 맞게 대입
+        // 1행에 1일에 해당하는 index 구하기
         int yoilOfFirstDayIdx = yoilOfFirstDay - 1;
 
         // 현재 달의 1일 이전의 날짜 대입
