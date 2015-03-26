@@ -46,15 +46,12 @@
     <string name="title_activity_list_view_exam01">ListViewExam01Activity</string>
     <string name="title_activity_list_view_exam02">ListViewExam02Activity</string>
     <string name="title_activity_start">StartActivity</string>
-    <string name="title_activity_activity_menu">ActivityMenuActivity</string>
-    <string name="title_activity_challenge">ChallengeMenuActivity</string>
-    <string name="title_activity_challenge_sam">ChallengeSamMenuActivity</string>
-    <string name="title_activity_event">EventMenuActivity</string>
-    <string name="title_activity_list_view_menu">ListViewMenuActivity</string>
     <string name="title_activity_menu">MenuActivity</string>
-    <string name="title_activity_spinner_exam01">SpinnerExam01Activity</string>
-    <string name="title_activity_grid_view_exam01">GridViewExam01Activity</string>
-    <string name="title_activity_grid_view_calendar">GridViewCalendarActivity</string>
+    <string name="title_activity_spinner_exam01">Spinner 연습</string>
+    <string name="title_activity_grid_view_exam01">GridView 연습</string>
+    <string name="title_activity_grid_view_calendar">도전 8. 달력에 일정 추가하기</string>
+    <string name="title_activity_thread_clock_exam01">타이머 만들기 01(소스배낌)</string>
+    <string name="title_activity_thread_clock_exam02">타이머 만들기 02(직접)</string>
 
 
 

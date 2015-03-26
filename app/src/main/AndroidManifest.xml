@@ -121,6 +121,16 @@
             android:name=".grid.GridViewCalendarActivity"
             android:label="@string/title_activity_grid_view_calendar" >
         </activity>
+        <activity
+            android:name=".thread.ThreadTimerExam01Activity"
+            android:label="@string/title_activity_thread_clock_exam01" >
+        </activity>
+        <activity
+            android:name=".thread.ThreadTimerExam02Activity"
+            android:label="@string/title_activity_thread_clock_exam02" >
+        </activity>
+
+
     </application>
 
 </manifest>

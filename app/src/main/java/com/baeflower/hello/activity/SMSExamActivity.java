@@ -32,11 +32,6 @@ public class SMSExamActivity extends ActionBarActivity {
         mSmsTransferBtn = (Button) findViewById(R.id.sms_transfer);
         mSmsExit = (Button) findViewById(R.id.sms_exit);
 
-        // InputFilter[] byteFilter = new InputFilter[]{new ByteLengthFilter(80, "KSC5601")};
-        // mInputText.setFilters(byteFilter);
-        // getText()로 byte 가져올 때 이렇게 해야된다 -> 안되는데?
-        // byte[] byteResult = value.getText().toString().getBytes("KSC5601");
-
         // byte 구하기 -> String에서 바이트 구하는 메소드 getBytes().length
         // 현재는 영어와 한글 바이트수가 같다(영어 80자 들어가면 한글도 80자 들어감)
         mInputText.addTextChangedListener(new TextWatcher() {

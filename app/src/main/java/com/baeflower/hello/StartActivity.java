@@ -29,6 +29,8 @@ public class StartActivity extends ActionBarActivity {
     private ArrayList<ActivityInfo> listViewInfoList;
     private ArrayList<ActivityInfo> spinnerInfoList;
     private ArrayList<ActivityInfo> gridViewInfoList;
+    private ArrayList<ActivityInfo> threadInfoList;
+
 
 
     @Override
@@ -48,6 +50,7 @@ public class StartActivity extends ActionBarActivity {
         mPackageList.add("list view");
         mPackageList.add("spinner");
         mPackageList.add("grid view");
+        mPackageList.add("thread");
 
 
 
@@ -84,6 +87,7 @@ public class StartActivity extends ActionBarActivity {
         listViewInfoList = new ArrayList<>();
         spinnerInfoList = new ArrayList<>();
         gridViewInfoList = new ArrayList<>();
+        threadInfoList = new ArrayList<>();
 
         for (ActivityInfo activityInfo : packageInfo.activities) {
             String name = activityInfo.name;
@@ -102,6 +106,8 @@ public class StartActivity extends ActionBarActivity {
                 spinnerInfoList.add(activityInfo);
             } else if (name.contains("grid")){
                 gridViewInfoList.add(activityInfo);
+            } else if (name.contains("thread")){
+                threadInfoList.add(activityInfo);
             }
         }
 
@@ -139,6 +145,9 @@ public class StartActivity extends ActionBarActivity {
                         break;
                     case 6:
                         intent.putExtra("activities", gridViewInfoList);
+                        break;
+                    case 7:
+                        intent.putExtra("activities", threadInfoList);
                         break;
                     default:
                 }
