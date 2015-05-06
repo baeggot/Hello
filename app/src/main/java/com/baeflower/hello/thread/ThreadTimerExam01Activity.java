@@ -101,10 +101,10 @@ public class ThreadTimerExam01Activity extends ActionBarActivity {
     class TimerHandler extends Handler {
         @Override
         public void handleMessage(Message msg) {
-            Log.d(TAG, "TimerHandler > handleMessage");
-            if (msg.what == 0) { // 이게 뭐지?
+            // Log.d(TAG, "TimerHandler > handleMessage");
+            if (msg.what == 0) { // click 했을 때 sendEmptymessae(메세지) 메세지가 msg로 들어오고 msg.what을 하면 전달한 변수 받음
                 mTvTime.setText(getTime());
-                mTimerHandler.sendEmptyMessage(0);
+                mTimerHandler.sendEmptyMessage(0); // handler를 계속 수행, UI 갱신을 계속 하겠다(while ,, 처럼 쓰는 것?!)
             }
         }
     }
@@ -145,7 +145,8 @@ public class ThreadTimerExam01Activity extends ActionBarActivity {
                     break;
                 case R.id.btn_timer_pause: //정지 버튼
                     Log.d(TAG, "TimerClickListener > pause click");
-                    mTimerHandler.removeMessages(0);
+                    mTimerHandler.removeMessages(0); // handler 동작 멈추는 것. 0으로 들어간 메세지를 지워버리는 것. 0이 없으니깐 if문이 안돌아서 수행이 안됨
+                    // mTimerHandler.removeCallbacks(...); // 지우고 싶은 runnable을 지우는 것
                     mStop = SystemClock.elapsedRealtime(); //멈춘 시점 저장
                     mBtnStart.setEnabled(true);
                     mBtnPause.setEnabled(false);

@@ -1,0 +1,12 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+      xmlns:app="http://schemas.android.com/apk/res-auto"
+      xmlns:tools="http://schemas.android.com/tools"
+      tools:context="com.baeflower.hello.challenge.challenge_17.VideoPlayerActivity">
+
+    <item
+        android:id="@+id/menu_item_video_count"
+        android:title="개수"
+        android:orderInCategory="1"
+        app:showAsAction="always"/>
+
+</menu>

@@ -19,6 +19,7 @@ import java.util.HashMap;
 public class CalendarAdapter extends BaseAdapter{
 
     public static final String TAG = CalendarAdapter.class.getSimpleName();
+
     private LayoutInflater inflater;
     private Integer[] dayArr;
     private ViewHolder viewHolder;

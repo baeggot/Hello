@@ -25,17 +25,15 @@ public class ThreadTimerExam02Activity extends ActionBarActivity{
 
     private SolTimerTask solTimerTask;
 
-    private long mAppRunTime;
+    private long mHandlerRunTime;
     private long mStartTime;
-    private long mStopTime;
+    private long mPauseTime;
 
     private void initData() {
         mBtnStart = (Button) findViewById(R.id.btn_timer_start);
         mBtnPause = (Button) findViewById(R.id.btn_timer_pause);
         mBtnReset = (Button) findViewById(R.id.btn_timer_reset);
         mTvTime = (TextView) findViewById(R.id.tv_time);
-
-        mAppRunTime = SystemClock.elapsedRealtime();
     }
 
     @Override
@@ -43,26 +41,34 @@ public class ThreadTimerExam02Activity extends ActionBarActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_thread_timer_exam01);
 
+        // 데이터 초기화
         initData();
 
+        // Timer, TimerTask 라는게 있네?!
 
         mBtnStart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                solTimerTask = new SolTimerTask();
+                mStartTime = SystemClock.elapsedRealtime();
+                solTimerTask = new SolTimerTask(); // View에서만 실행
                 solTimerTask.execute();
             }
         });
 
+        mBtnPause.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                solTimerTask.cancel(true);
+            }
+        });
     }
 
     // AsyncTask클래스는 항상 Subclassing 해서 사용 해야 함. (상속받아서 쓴다는 말인듯?!)
-    // 사용 자료형은
     // background 작업에 사용할 data의 자료형
     // background 작업 진행 표시를 위해 사용할 인자
     // background 작업의 결과를 표현할 자료형
     // 인자를 사용하지 않은 경우 Void Type 으로 지정.
-    class SolTimerTask extends AsyncTask<Integer, Integer, Integer> {
+    class SolTimerTask extends AsyncTask<Void, Long, Integer> {
 
         // Background 작업 시작전에 UI 작업을 진행 한다.
         @Override
@@ -72,36 +78,50 @@ public class ThreadTimerExam02Activity extends ActionBarActivity{
 
         //
         @Override
-        protected Integer doInBackground(Integer... params) {
+        protected Integer doInBackground(Void... params) {
             Log.d(TAG, "doInBackground");
 
-            mStartTime = SystemClock.elapsedRealtime();
-            Log.d("mStartTime", Long.toString(mStartTime));
-            Log.d("mAppRunTime", Long.toString(mAppRunTime));
+            while (isCancelled() == false) {
+                // SystemClock.uptimeMillis(); // delay 시간은 카운트 하지 않음
+                mHandlerRunTime = SystemClock.elapsedRealtime(); // delay 상관없이 시간은 계속 감
+                long timer = mHandlerRunTime - mStartTime;
 
+                publishProgress(timer); // onProgressUpdate 메서드 호출
 
-            publishProgress(); // onProgressUpdate 메서드 호출
+                try {
+                    Thread.sleep(1); // 1 millisecond
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
 
             return null;
         }
 
-        // Background 작업을 진행 한다.
+        // UI 작업
         @Override
-        protected void onProgressUpdate(Integer... values) {
+        protected void onProgressUpdate(Long... values) {
             Log.d(TAG, "onProgressUpdate");
+
+            String timerStr = String.format("%02d:%02d:%03d", values[0] / 1000 / 60, (values[0] / 1000) % 60, values[0] % 1000);
+            mTvTime.setText(timerStr);
         }
 
         // Background 작업이 끝난 후 UI 작업을 진행 한다.
         @Override
         protected void onPostExecute(Integer integer) {
             Log.d(TAG, "onPostExecute");
+
         }
 
         // 스레드 취소
         @Override
         protected void onCancelled(Integer integer) {
             Log.d(TAG, "onCancelled");
+            mPauseTime = SystemClock.elapsedRealtime(); // pause 시간
         }
+
+
     }
 
 

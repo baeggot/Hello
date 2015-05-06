@@ -149,7 +149,7 @@
     <ListView
         android:id="@+id/listView_todo_gridView"
         android:layout_width="match_parent"
-        android:layout_height="180dp"
+        android:layout_height="130dp"
         android:background="#ff7290ff">
     </ListView>
 

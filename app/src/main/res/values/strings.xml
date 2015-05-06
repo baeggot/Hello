@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Hello</string>
+    <string name="app_name">안드로이드 연습앱</string>
     <!-- 여기에 string이 다 모이기 때문에 주석 달면서 정리를 잘해야 된다 -->
     <string name="hello_world">안녕 안드로이드!</string>
     <string name="action_settings">Settings</string>
@@ -38,8 +38,6 @@
 
     <string name="title_activity_login_exam">LoginExamActivity</string>
     <string name="title_activity_login_activity_target">LoginActivityTargetActivity</string>
-    <string name="title_activity_main">MainActivity</string>
-    <string name="title_activity_sub">SubActivity</string>
     <string name="title_activity_touch_event">TouchEventActivity</string>
     <string name="title_activity_date_picker">DatePickerActivity</string>
     <string name="title_activity_web_view">WebViewActivity</string>
@@ -52,7 +50,29 @@
     <string name="title_activity_grid_view_calendar">도전 8. 달력에 일정 추가하기</string>
     <string name="title_activity_thread_clock_exam01">타이머 만들기 01(소스배낌)</string>
     <string name="title_activity_thread_clock_exam02">타이머 만들기 02(직접)</string>
+    <string name="title_activity_parsing_exam01">Parsing Json</string>
+    <string name="title_activity_parsing_exam02">Parsing Xml</string>
+    <string name="title_activity_parsing_webview">Parsing Webview</string>
+    <string name="title_activity_google_maps_exam01">구글맵 이용하기 01</string>
+    <string name="title_activity_bitmap_exam01">Bitmap 이미지 다루기 01</string>
+    <string name="title_activity_style_exam01">StyleExam01Activity</string>
+    <string name="title_activity_graphic">GraphicActivity</string>
+    <string name="title_activity_shared_preference_exam01">SharedPreferenceExam01Activity</string>
+    <string name="title_activity_file">FileActivity</string>
+    <string name="title_activity_db">DBActivity</string>
+    <string name="title_calendar_using_db">DB를 이용한 캘린더</string>
+    <string name="title_activity_chat_exam01">채팅 예제</string>
+    <string name="title_activity_chat_message">채팅창</string>
+    <string name="title_activity_builtin_camera">BuiltinCameraActivity</string>
+    <string name="title_activity_media_player">MediaPlayerActivity</string>
+    <string name="title_activity_sol_music_player_list">SolMusicPlayerListActivity</string>
+    <string name="title_activity_video_player">VideoPlayerActivity</string>
+    <string name="title_activity_video_play">VideoPlayActivity</string>
+    <string name="title_activity_camera_frame">CameraFrameActivity</string>
+    <string name="title_activity_contact">ContactActivity</string>
 
+    <string name="music_player_init_time">00:00</string>
+    <string name="title_activity_sol_music_player">SolMusicPlayerActivity</string>
 
 
 </resources>
