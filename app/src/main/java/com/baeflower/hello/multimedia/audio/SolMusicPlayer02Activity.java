@@ -140,7 +140,7 @@ public class SolMusicPlayer02Activity extends AppCompatActivity implements View.
         bindService(serviceIPC, mConnectionMessenger, Context.BIND_AUTO_CREATE);
 
         if (SolMusicMessengerService.isPaused == true) {
-            mIvMusicPlayerPhoto.setImageResource(android.R.drawable.ic_media_play);
+            mIbMusicPlayerPlay.setImageResource(android.R.drawable.ic_media_play);
         }
 
     }

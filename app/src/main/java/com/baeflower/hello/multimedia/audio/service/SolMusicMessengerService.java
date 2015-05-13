@@ -190,34 +190,6 @@ public class SolMusicMessengerService extends Service implements MediaPlayer.OnC
         // stopForeground(true);
     }
 
-
-    private void showNotification() {
-        CharSequence text = getText(R.string.local_service_started);
-
-        Notification notification = new Notification(android.R.drawable.ic_media_pause, text, System.currentTimeMillis());
-
-        PendingIntent contentIntent = PendingIntent.getActivity(this, 0, new Intent(this, SolMusicPlayerActivity.class), 0);
-        notification.setLatestEventInfo(this, getText(R.string.local_service_started), text, contentIntent);
-
-        mNM.notify(NOTIFICATION, notification);
-    }
-
-    private void playForegroundNotification() {
-        String songName = "test song name";
-        // assign the song name to songName
-        PendingIntent pi = PendingIntent.getActivity(getApplicationContext(), 0,
-                new Intent(getApplicationContext(), SolMusicPlayerActivity.class),
-                PendingIntent.FLAG_UPDATE_CURRENT);
-        Notification notification = new Notification();
-        notification.tickerText = "tickerText";
-        notification.icon = R.drawable.ic_plusone_standard_off_client;
-        notification.flags |= Notification.FLAG_ONGOING_EVENT;
-        notification.setLatestEventInfo(getApplicationContext(), "MusicPlayerSample",
-                "Playing: " + songName, pi);
-        startForeground(NOTIFICATION_ID, notification);
-
-    }
-
     private void sendMessageToPlayerActivity() {
         Message msg = Message.obtain(null, SolMusicMessengerService.MSG_GET_MP, 0, 0);
         msg.obj = mMediaPlayer;
@@ -255,6 +227,31 @@ public class SolMusicMessengerService extends Service implements MediaPlayer.OnC
 
 
 
+    private void showNotification() {
+        CharSequence text = getText(R.string.local_service_started);
 
+        Notification notification = new Notification(android.R.drawable.ic_media_pause, text, System.currentTimeMillis());
+
+        PendingIntent contentIntent = PendingIntent.getActivity(this, 0, new Intent(this, SolMusicPlayerActivity.class), 0);
+        notification.setLatestEventInfo(this, getText(R.string.local_service_started), text, contentIntent);
+
+        mNM.notify(NOTIFICATION, notification);
+    }
+
+    private void playForegroundNotification() {
+        String songName = "test song name";
+        // assign the song name to songName
+        PendingIntent pi = PendingIntent.getActivity(getApplicationContext(), 0,
+                new Intent(getApplicationContext(), SolMusicPlayerActivity.class),
+                PendingIntent.FLAG_UPDATE_CURRENT);
+        Notification notification = new Notification();
+        notification.tickerText = "tickerText";
+        notification.icon = R.drawable.ic_plusone_standard_off_client;
+        notification.flags |= Notification.FLAG_ONGOING_EVENT;
+        notification.setLatestEventInfo(getApplicationContext(), "MusicPlayerSample",
+                "Playing: " + songName, pi);
+        startForeground(NOTIFICATION_ID, notification);
+
+    }
 
 }
