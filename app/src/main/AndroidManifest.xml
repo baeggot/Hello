@@ -17,11 +17,14 @@
     <uses-feature android:name="android.hardware.camera" />
     <uses-feature android:name="android.hardware.camera.autofocus" />
 
+    <!-- audio -->
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+
     <!--
          The following two permissions are not required to use
          Google Maps Android API v2, but are recommended.
     -->
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <!-- <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" /> -->
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
     <!-- Open GL 버전 2 지원여부(Google Map) -->
@@ -236,26 +239,32 @@
         </service>
 
         <activity
-            android:name=".multimedia.audio.SolMusicPlayerListActivity"
+            android:name=".multimedia.audio.SolMusicSongListActivity"
             android:label="@string/title_activity_sol_music_player_list" >
         </activity>
-
         <activity
-            android:name=".multimedia.audio.SolMusicPlayerActivity"
+            android:name=".multimedia.audio._dump.SolMusicPlayerActivity"
             android:label="@string/title_activity_sol_music_player" >
         </activity>
 
         <service
-            android:name=".multimedia.audio.SolMusicService"
+            android:name=".multimedia.audio.service.SolMusicService"
             android:enabled="true"
             android:exported="true" >
-
             <intent-filter>
                 <action android:name="com.baeflower.hello.multimedia.IMusicInterface" />
             </intent-filter>
-
         </service>
-
+        <service
+            android:name=".multimedia.audio.service.SolMusicBindService"
+            android:enabled="true"
+            android:exported="true" >
+        </service>
+        <service
+            android:name=".multimedia.audio.service.SolMusicMessengerService"
+            android:enabled="true"
+            android:exported="true" >
+        </service>
 
         <activity
             android:name=".challenge.challenge_17.VideoPlayerActivity"
@@ -272,6 +281,14 @@
         <activity
             android:name=".contentProvider.ContactActivity"
             android:label="@string/title_activity_contact" >
+        </activity>
+        <activity
+            android:name=".location.LocationActivity"
+            android:label="@string/title_activity_location" >
+        </activity>
+        <activity
+            android:name=".multimedia.audio.SolMusicPlayer02Activity"
+            android:label="@string/title_activity_sol_music_player02" >
         </activity>
     </application>
 

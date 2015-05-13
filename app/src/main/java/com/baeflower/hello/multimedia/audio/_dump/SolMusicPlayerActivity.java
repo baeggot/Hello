@@ -1,5 +1,5 @@
 
-package com.baeflower.hello.multimedia.audio;
+package com.baeflower.hello.multimedia.audio._dump;
 
 import android.content.ComponentName;
 import android.content.ContentUris;
@@ -15,9 +15,10 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.Message;
+import android.os.Messenger;
 import android.os.ParcelFileDescriptor;
 import android.provider.MediaStore;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
@@ -27,15 +28,21 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.baeflower.hello.R;
+import com.baeflower.hello.location.SolMusicMPHandler;
+import com.baeflower.hello.multimedia.audio.service.SolMusicBindService;
+import com.baeflower.hello.multimedia.audio.service.SolMusicMessengerService;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.lang.ref.WeakReference;
 import java.util.concurrent.TimeUnit;
 
-public class SolMusicPlayerActivity extends ActionBarActivity implements View.OnClickListener {
+public class SolMusicPlayerActivity extends AppCompatActivity implements View.OnClickListener {
 
     private static final String TAG = SolMusicPlayerActivity.class.getSimpleName();
+    private static final int SONG_COLUMN_SIZE = 8;
+
+    private static final int MSG_HELLO_TEST = 0;
+    private static final int MSG_GET_MP = 1;
 
     private TextView mTvMusicPlayerNowPlaying;
     private TextView mTvMusicPlayerSongName;
@@ -50,7 +57,7 @@ public class SolMusicPlayerActivity extends ActionBarActivity implements View.On
     private ImageButton mIbMusicPlayerBack;
     private ImageButton mIbMusicPlayerBackToList;
 
-    private MediaPlayer mMediaPlayer;
+    private static MediaPlayer mMediaPlayer;
 
     private double startTime = 0;
     private double finalTime = 0;
@@ -62,9 +69,12 @@ public class SolMusicPlayerActivity extends ActionBarActivity implements View.On
     private String[][] mSongArr;
     private String[] mPlaySongInfo;
 
-    private SolMusicService mSolMusicService;
+    private SolMusicBindService mSolMusicBindService;
     private boolean mBound = false;
     private Uri mMusicUri;
+
+    private SolMusicMPHandler mSolMusicMPHandler;
+
 
     private void assignViews() {
         mTvMusicPlayerNowPlaying = (TextView) findViewById(R.id.tv_music_player_now_playing);
@@ -88,6 +98,8 @@ public class SolMusicPlayerActivity extends ActionBarActivity implements View.On
         // mIbMusicPlayerPause.setOnClickListener(this);
 
         mMediaPlayer = new MediaPlayer();
+
+        mSolMusicMPHandler = new SolMusicMPHandler();
     }
 
 
@@ -103,7 +115,7 @@ public class SolMusicPlayerActivity extends ActionBarActivity implements View.On
         mCurrentPosition = intent.getIntExtra("currentPosition", 0);
 
         int totalSize = intent.getIntExtra("totalSize", 0);
-        mSongArr = new String[totalSize][8];
+        mSongArr = new String[totalSize][SONG_COLUMN_SIZE];
 
         for (int i = 0; i < totalSize; i++) {
             String key = "song_" + i;
@@ -123,11 +135,9 @@ public class SolMusicPlayerActivity extends ActionBarActivity implements View.On
                 if (fromUser)
                     mMediaPlayer.seekTo(progress);
             }
-
             @Override
             public void onStartTrackingTouch(SeekBar seekBar) {
             }
-
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
             }
@@ -139,9 +149,10 @@ public class SolMusicPlayerActivity extends ActionBarActivity implements View.On
          */
 
         /*
-            // 방법2. 서비스에서 재생
+            // 방법2. 서비스에서 재생 (startService 사용)
+
         Intent service = new Intent(getApplicationContext(), SolMusicService.class);
-        service.putExtra("musicUri", musicUri);
+        service.putExtra("musicUri", mMusicUri);
         startService(service);
         */
     }
@@ -153,32 +164,31 @@ public class SolMusicPlayerActivity extends ActionBarActivity implements View.On
         Log.d(TAG, "onStart");
 
         /*
-            // 방법 3. 서비스 binding
-         */
-        Intent service = new Intent(getApplicationContext(), SolMusicService.class);
-        service.putExtra("musicUri", mMusicUri);
-        bindService(service, mConnection, Context.BIND_AUTO_CREATE);
-        startPlayMusicUI();
+            // 방법 3. 서비스 binding (LPC : Local...)
+
+            Intent service = new Intent(getApplicationContext(), SolMusicBindService.class);
+            service.putExtra("musicUri", mMusicUri);
+            bindService(service, mConnectionLocal, Context.BIND_AUTO_CREATE);
+        */
+
+        /*
+            // 방법 4. 서비스 binding (IPC???????)
+        */
+
+        Intent serviceIPC = new Intent(getApplicationContext(), SolMusicMessengerService.class);
+        serviceIPC.putExtra("musicUri", mMusicUri);
+        startService(serviceIPC);
+        bindService(serviceIPC, mConnectionMessenger, Context.BIND_AUTO_CREATE);
 
     }
 
-    @Override
-    protected void onStop() {
-        super.onStop();
-        Log.d(TAG, "onStop");
-
-        if (mBound) {
-            unbindService(mConnection);
-            mBound = false;
-        }
-    }
-
-    private ServiceConnection mConnection = new ServiceConnection() {
+    private ServiceConnection mConnectionLocal = new ServiceConnection() {
         @Override
         public void onServiceConnected(ComponentName name, IBinder service) {
-            SolMusicService.LocalBinder binder = (SolMusicService.LocalBinder) service;
-            mSolMusicService = binder.getService();
+            SolMusicBindService.LocalBinder binder = (SolMusicBindService.LocalBinder) service;
+            mSolMusicBindService = binder.getService();
             mBound = true;
+            setMusicLocalUI();
         }
 
         @Override
@@ -187,6 +197,112 @@ public class SolMusicPlayerActivity extends ActionBarActivity implements View.On
         }
     };
 
+    // Messenger for communicating with the service
+    private Messenger mServiceMessenger;
+    // Flag indicating whether we have called bind on the service
+    private boolean mBoundMessenger;
+
+
+    private ServiceConnection mConnectionMessenger = new ServiceConnection() {
+        @Override
+        public void onServiceConnected(ComponentName name, IBinder service) {
+            Log.d(TAG, "onServiceConnected");
+
+            mServiceMessenger = new Messenger(service);
+            mBoundMessenger = true;
+            setMusicIPCUI();
+
+
+        }
+
+        @Override
+        public void onServiceDisconnected(ComponentName name) {
+            Log.d(TAG, "onServiceDisconnected");
+            mServiceMessenger = null;
+            mBoundMessenger = false;
+        }
+    };
+
+//    public void sayHello() {
+//        if (mBoundMessenger == false) return;
+//
+//        // Create and send a message to the service, using a supported 'what' value
+//        Message msg = Message.obtain(null, SolMusicMessengerService.MSG_HELLO_TEST, 0, 0);
+//        try {
+//            msg.obj = "hello";
+//            mServiceMessenger.send(msg);
+//        } catch (RemoteException e) {
+//            Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
+//        }
+//    }
+
+    private void setMusicIPCUI() {
+
+        mTvMusicPlayerSongName.setText(mPlaySongInfo[2]); // 노래 제목
+
+        Bitmap albumArt = getArtworkQuick(getApplicationContext(), Integer.parseInt(mPlaySongInfo[6]), 50, 50);
+        if (albumArt != null) {
+            mIvMusicPlayerPhoto.setImageBitmap(albumArt);
+        }
+
+        if (mMediaPlayer != null) {
+
+            finalTime = mMediaPlayer.getDuration();
+            startTime = mMediaPlayer.getCurrentPosition();
+
+            if (oneTimeOnly == 0) {
+                mSbMusicTimeBar.setMax((int) finalTime);
+                oneTimeOnly = 1;
+            }
+
+            mTvStartTime.setText(String.format("%2d : %2d",
+                            TimeUnit.MILLISECONDS.toMinutes((long) startTime),
+                            TimeUnit.MILLISECONDS.toSeconds((long) startTime) -
+                                    TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.
+                                            toMinutes((long) startTime)))
+            );
+            mTvEndTime.setText(String.format("%2d : %2d",
+                            TimeUnit.MILLISECONDS.toMinutes((long) finalTime),
+                            TimeUnit.MILLISECONDS.toSeconds((long) finalTime) -
+                                    TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.
+                                            toMinutes((long) finalTime)))
+            );
+
+            mSbMusicTimeBar.setProgress((int) startTime);
+            /*
+                @param r The Runnable that will be executed.
+                @param delayMillis The delay (in milliseconds) until the Runnable will be executed.
+             */
+            mHandler.postDelayed(musicRunnable, 100);
+        }
+    }
+
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        Log.d(TAG, "onStop");
+
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        Log.d(TAG, "onDestroy");
+
+        /*
+        if (mBound) {
+            unbindService(mConnectionLocal);
+            mBound = false;
+        }
+        */
+
+        // unbind from the IPC service
+        if (mBoundMessenger) {
+            unbindService(mConnectionMessenger);
+            mBoundMessenger = false;
+        }
+    }
 
     @Override
     public void onClick(View v) {
@@ -304,16 +420,6 @@ public class SolMusicPlayerActivity extends ActionBarActivity implements View.On
         finalTime = mMediaPlayer.getDuration();
         startTime = mMediaPlayer.getCurrentPosition();
 
-        /*
-        try {
-            finalTime = mSolMusicService.mBinder.getDuration();
-            startTime = mSolMusicService.mBinder.getCurrentPosition();
-
-        } catch (RemoteException e) {
-            e.printStackTrace();
-        }
-        */
-
         if (oneTimeOnly == 0) {
             mSbMusicTimeBar.setMax((int) finalTime);
             oneTimeOnly = 1;
@@ -338,7 +444,7 @@ public class SolMusicPlayerActivity extends ActionBarActivity implements View.On
     }
 
 
-    private void startPlayMusicUI() {
+    private void setMusicLocalUI() {
 
         mTvMusicPlayerSongName.setText(mPlaySongInfo[2]); // 노래 제목
 
@@ -347,12 +453,13 @@ public class SolMusicPlayerActivity extends ActionBarActivity implements View.On
             mIvMusicPlayerPhoto.setImageBitmap(albumArt);
         }
 
-        if (mSolMusicService != null) {
-            if (mMediaPlayer != null) {
-                mMediaPlayer = mSolMusicService.getmMediaPlayer();
+        if (mSolMusicBindService != null) {
+            mMediaPlayer = mSolMusicBindService.getmMediaPlayer();
 
-                finalTime = mSolMusicService.getmMediaPlayer().getDuration();
-                startTime = mSolMusicService.getmMediaPlayer().getCurrentPosition();
+            if (mMediaPlayer != null) {
+
+                finalTime = mSolMusicBindService.getmMediaPlayer().getDuration();
+                startTime = mSolMusicBindService.getmMediaPlayer().getCurrentPosition();
 
                 if (oneTimeOnly == 0) {
                     mSbMusicTimeBar.setMax((int) finalTime);
@@ -372,42 +479,72 @@ public class SolMusicPlayerActivity extends ActionBarActivity implements View.On
                                         toMinutes((long) finalTime)))
                         );
 
-
                 mSbMusicTimeBar.setProgress((int) startTime);
+                /*
+                    @param r The Runnable that will be executed.
+                    @param delayMillis The delay (in milliseconds) until the Runnable will be executed.
+                 */
                 mHandler.postDelayed(musicRunnable, 100);
             }
         }
     }
 
-    private final MusicHandler mHandler = new MusicHandler(this);
+    private final MusicHandler mHandler = new MusicHandler();
 
     public static class MusicHandler extends Handler {
-        private final WeakReference<SolMusicPlayerActivity> mActivity;
+//        private final WeakReference<SolMusicPlayerActivity> mActivity;
 
-        public MusicHandler(SolMusicPlayerActivity activity) {
-            mActivity = new WeakReference<>(activity);
+        public MusicHandler() {
         }
+
+//        public MusicHandler(SolMusicPlayerActivity activity) {
+//            mActivity = new WeakReference<>(activity);
+//        }
 
         @Override
         public void handleMessage(Message msg) {
-            SolMusicPlayerActivity activity = mActivity.get();
-            if (activity != null) {
+//            SolMusicPlayerActivity activity = mActivity.get();
+//            if (activity != null) {
+//            }
+            Log.d(TAG, msg.obj.toString());
+
+            switch (msg.what) {
+                case MSG_GET_MP:
+                    mMediaPlayer = (MediaPlayer) msg.obj;
+                    break;
+                default:
+                    super.handleMessage(msg);
             }
         }
     }
+
+    private boolean mIsCompleted;
 
     // static final 이었는데 static 뺌
     private final Runnable musicRunnable = new Runnable() {
         @Override
         public void run() {
-            startTime = mMediaPlayer.getCurrentPosition();
-            mTvStartTime.setText(String.format(
-                    "%2d : %2d"
-                            , TimeUnit.MILLISECONDS.toMinutes((long) startTime)
-                            , TimeUnit.MILLISECONDS.toSeconds((long) startTime) - TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes((long) startTime)))
+
+//            mIsCompleted = mSolMusicBindService.ismIsCompleted();
+//
+//            if (mIsCompleted == true) { // 다음 노래 재생
+//
+//            }
+
+            try {
+                if (mMediaPlayer.isPlaying()) {
+                    startTime = mMediaPlayer.getCurrentPosition();
+                    mTvStartTime.setText(String.format(
+                                    "%2d : %2d"
+                                    , TimeUnit.MILLISECONDS.toMinutes((long) startTime)
+                                    , TimeUnit.MILLISECONDS.toSeconds((long) startTime) - TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes((long) startTime)))
                     );
-            mSbMusicTimeBar.setProgress((int) startTime);
-            mHandler.postDelayed(musicRunnable, 100);
+                    mSbMusicTimeBar.setProgress((int) startTime);
+                    mHandler.postDelayed(musicRunnable, 100);
+                }
+            } catch (IllegalStateException e) {
+            }
+
         }
     };
 
@@ -439,7 +576,8 @@ public class SolMusicPlayerActivity extends ActionBarActivity implements View.On
             long contentId = Long.parseLong(mPlaySongInfo[0]);
             Uri contentUri = ContentUris.withAppendedId(MediaStore.Audio.Media.EXTERNAL_CONTENT_URI, contentId);
 
-            // playSong(contentUri);
+
+
             Toast.makeText(getApplicationContext(), "다음 곡 재생", Toast.LENGTH_SHORT).show();
         }
     }
@@ -508,5 +646,6 @@ public class SolMusicPlayerActivity extends ActionBarActivity implements View.On
                     Toast.LENGTH_SHORT).show();
         }
     }
+
 
 }

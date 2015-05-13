@@ -1,6 +1,7 @@
-package com.baeflower.hello.multimedia.audio;
+package com.baeflower.hello.multimedia.audio.adapter;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,6 +24,9 @@ public class MusicListAdapter extends BaseAdapter {
     private List<String> mMusicList;
     private String[][] mSongArr;
 
+    private int mCurrentPosition;
+
+
     static class ViewHolder {
         TextView music;
     }
@@ -32,9 +36,10 @@ public class MusicListAdapter extends BaseAdapter {
         mMusicList = musicList;
     }
 
-    public MusicListAdapter(Context context, String[][] songArr) {
+    public MusicListAdapter(Context context, String[][] songArr, int currentPosition) {
         mContext = context;
         mSongArr = songArr;
+        mCurrentPosition = currentPosition;
     }
 
     @Override
@@ -76,6 +81,16 @@ public class MusicListAdapter extends BaseAdapter {
         // viewHolder.music.setText(mMusicList.get(position));
         viewHolder.music.setText(mSongArr[position][2]);
 
+        if (mCurrentPosition == position) { // 현재 재생중
+            viewHolder.music.setBackgroundColor(Color.GREEN);
+        } else {
+            viewHolder.music.setBackgroundColor(Color.parseColor("#FFffff00"));
+        }
+
         return view;
+    }
+
+    public void setmCurrentPosition(int mCurrentPosition) {
+        this.mCurrentPosition = mCurrentPosition;
     }
 }

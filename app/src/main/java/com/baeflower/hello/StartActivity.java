@@ -39,6 +39,8 @@ public class StartActivity extends ActionBarActivity {
     private ArrayList<ActivityInfo> cameraInfoList;
     private ArrayList<ActivityInfo> multimediaInfoList;
     private ArrayList<ActivityInfo> contentProviderInfoList;
+    private ArrayList<ActivityInfo> locationInfoList;
+
 
 
 
@@ -69,6 +71,7 @@ public class StartActivity extends ActionBarActivity {
         mPackageList.add("camera");
         mPackageList.add("multimedia");
         mPackageList.add("content provider");
+        mPackageList.add("location");
 
         // List<PackageInfo> packageInfoList =
         // getPackageManager().getInstalledPackages(PackageManager.GET_ACTIVITIES);
@@ -113,7 +116,7 @@ public class StartActivity extends ActionBarActivity {
         cameraInfoList = new ArrayList<>();
         multimediaInfoList = new ArrayList<>();
         contentProviderInfoList = new ArrayList<>();
-
+        locationInfoList = new ArrayList<>();
 
 
         for (ActivityInfo activityInfo : packageInfo.activities) {
@@ -153,6 +156,8 @@ public class StartActivity extends ActionBarActivity {
                 multimediaInfoList.add(activityInfo);
             } else if (name.contains("contentProvider")) {
                 contentProviderInfoList.add(activityInfo);
+            } else if (name.contains("location")) {
+                locationInfoList.add(activityInfo);
             }
         }
 
@@ -220,6 +225,9 @@ public class StartActivity extends ActionBarActivity {
                         break;
                     case 16:
                         intent.putExtra("activities", contentProviderInfoList);
+                        break;
+                    case 17:
+                        intent.putExtra("activities", locationInfoList);
                         break;
                     default:
                 }
